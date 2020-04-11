@@ -1,28 +1,31 @@
-FROM php:7.3-fpm
+FROM php:fpm-alpine3.11
 
 # Install packages
-RUN apt-get update \
+RUN apk update \
     && \
     # apt Debian packages
-    apt-get install -y \
-        apt-utils \
+    apk add \
         autoconf \
         ca-certificates \
         curl \
         g++ \
-        libbz2-dev \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
+        make \
+        bzip2-dev \
+        freetype-dev \
+        libjpeg-turbo-dev \
         libpng-dev \
-        libpq-dev \
-        libssl-dev \
-        libicu-dev \
-        libmagickwand-dev \
+        libpq \
+        libressl-dev \
+        icu-dev \
+        gettext-dev \
+        oniguruma-dev \
         libzip-dev \
+        imagemagick-dev \
+        zlib-dev \
         unzip \
         zip \
         git \
-        iputils-ping \
+        iputils \
         net-tools \
     && \
     # pecl PHP extensions
@@ -33,7 +36,7 @@ RUN apt-get update \
     && \
     # Configure PHP extensions
     docker-php-ext-configure \
-        gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+        gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && \
     # Install PHP extensions
     docker-php-ext-install \
@@ -70,4 +73,4 @@ RUN echo "upload_max_filesize = 10M" >> /usr/local/etc/php/php.ini && \
     echo "opcache.validate_timestamps = 1" >> /usr/local/etc/php/php.ini
 
 # Copy the `zzz-docker.conf` file into place for php-fpm
-COPY ./zzz-docker.conf /usr/local/etc/php-fpm.d/zzz-docker.conf
+COPY ./zzz-docker.conf /etc/php7/conf.d/zzz-docker.conf

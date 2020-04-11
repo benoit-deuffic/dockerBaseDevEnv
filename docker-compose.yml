@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   # nginx - web server
@@ -18,7 +18,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: ./docker-config/php-dev-craft/Dockerfile
+      dockerfile: ./docker-config/alpine-php-dev-overlay/Dockerfile
     depends_on:
       - "mariadb"
       - "redis"
