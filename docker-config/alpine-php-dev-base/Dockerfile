@@ -27,6 +27,7 @@ RUN apk update \
         git \
         iputils \
         net-tools \
+        postgresql-client \
     && \
     # pecl PHP extensions
     pecl install \
@@ -73,4 +74,4 @@ RUN echo "upload_max_filesize = 10M" >> /usr/local/etc/php/php.ini && \
     echo "opcache.validate_timestamps = 1" >> /usr/local/etc/php/php.ini
 
 # Copy the `zzz-docker.conf` file into place for php-fpm
-COPY ./zzz-docker.conf /etc/php7/conf.d/zzz-docker.conf
+COPY ./zzz-docker.conf /usr/local/etc/php-fpm.d/zzz-docker.conf
