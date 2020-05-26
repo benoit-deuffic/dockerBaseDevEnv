@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := compose
+
 clean:
 	docker system prune -a -f
 

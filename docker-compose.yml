@@ -11,7 +11,7 @@ services:
     links:
       - php
     ports:
-      - "8000:80"
+      - "8080:80"
     volumes:
       - ./app/public:/var/www/project/app/public:cached
   # php - personal home page
