@@ -1,4 +1,4 @@
-FROM php:fpm-alpine3.11
+ FROM php:7.4-fpm-alpine
 
 # Install packages
 RUN apk update \

@@ -1,6 +1,6 @@
 FROM composer:latest as composer
 
-FROM bdeuffic/alpine-php-dev-base
+FROM bdeuffic/php7-fpm-alpine-base
 
 # Install packages
 RUN apk update \

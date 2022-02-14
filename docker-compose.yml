@@ -29,6 +29,7 @@ services:
     links:
       - mariadb
       - redis
+      - solr
     volumes:
       - ./app:/var/www/project/app:consistent
       - ./app/vendor:/var/www/project/app/vendor:delegated
@@ -57,5 +58,15 @@ services:
       dockerfile: ./docker-config/redis/Dockerfile
     expose:
       - "6379"
+
+  solr:
+    build:
+      context: .
+      dockerfile: ./docker-config/solr/Dockerfile
+    expose:
+     - "8901"
+    ports:
+     - "8981:8983"
+
 volumes:
   db-data:
