@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./docker-config/nginx/Dockerfile
     env_file: &env
-      - ./app/.env
+      - ./env/.env
     links:
       - php
     ports:
@@ -41,7 +41,7 @@ services:
       context: .
       dockerfile: ./docker-config/mariadb/Dockerfile
     env_file: 
-      - ./app/env/.env-mariadb
+      - ./env/.env-mariadb
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: project
