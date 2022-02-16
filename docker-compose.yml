@@ -20,14 +20,15 @@ services:
       context: .
       dockerfile: ./docker-config/alpine-php-dev-overlay/Dockerfile
     depends_on:
-      - "mariadb"
+      - "db"
       - "redis"
+      - "solr"
     env_file:
       *env
     expose:
       - "9000"
     links:
-      - mariadb
+      - db
       - redis
       - solr
     volumes:
@@ -35,13 +36,13 @@ services:
 #      - ./app/vendor:/var/www/app/vendor:delegated
 #      - ./app/var/logs:/var/www/app/var/logs:delegated
 #      - ./app/var/cache:/var/www/app/var/cache:delegated
-  # mariadb - database
-  mariadb:
+  # - database
+  db:
     build:
       context: .
-      dockerfile: ./docker-config/mariadb/Dockerfile
+      dockerfile: ./docker-config/db/Dockerfile
     env_file: 
-      - ./env/.env-mariadb
+      - ./env/.env-db
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: project
