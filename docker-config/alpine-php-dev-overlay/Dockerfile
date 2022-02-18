@@ -25,7 +25,7 @@ COPY --from=composer  /usr/bin/composer /usr/local/bin/composer
 ENV PATH=/var/www/project/app/vendor/bin:$PATH
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-WORKDIR /var/www/project
+WORKDIR /var/www
 
 # Create a symfony 4.4 complete project
 #RUN if [ ! -d ./app -o ! "$(ls -A ./app)" ]; then \
@@ -37,7 +37,7 @@ WORKDIR /var/www/project
 #    && \
 #    chown -R www-data:www-data /var/www/project/app/var
 
-WORKDIR /var/www/project/app
+WORKDIR /var/www/app
 
 CMD ln -s /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
