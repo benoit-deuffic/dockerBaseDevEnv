@@ -9,6 +9,7 @@ RUN apk update \
     apk add \
         nano \
         postgresql-dev \
+        bash \
     && \
     # Install PHP extensions
     docker-php-ext-install \
