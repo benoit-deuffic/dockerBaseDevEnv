@@ -14,6 +14,8 @@ RUN apk update \
         optipng \
         bash \
         util-linux \
+        openssh \
+        mysql \
     && \
     # Install PHP extensions
     docker-php-ext-install \
