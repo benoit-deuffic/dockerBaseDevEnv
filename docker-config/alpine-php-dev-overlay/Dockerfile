@@ -12,6 +12,8 @@ RUN apk update \
         libjpeg-turbo-utils \
         advancecomp \
         optipng \
+        bash \
+        util-linux \
     && \
     # Install PHP extensions
     docker-php-ext-install \
