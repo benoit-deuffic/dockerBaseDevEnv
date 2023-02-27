@@ -7,40 +7,42 @@ services:
       context: .
       dockerfile: ./docker-config/nginx/Dockerfile
     env_file: &env
-      - ./app/.env
+      - ./env/.env
     links:
       - php
     ports:
       - "8080:80"
     volumes:
-      - ./app/public:/var/www/project/app/public:cached
+      - ./app:/var/www/app:cached
   # php - personal home page
   php:
     build:
       context: .
       dockerfile: ./docker-config/alpine-php-dev-overlay/Dockerfile
     depends_on:
-      - "mariadb"
+      - "db"
       - "redis"
+      - "solr"
     env_file:
       *env
     expose:
       - "9000"
     links:
-      - mariadb
+      - db
       - redis
+      - solr
     volumes:
-      - ./app:/var/www/project/app:consistent
-      - ./app/vendor:/var/www/project/app/vendor:delegated
-      - ./app/var/logs:/var/www/project/app/var/logs:delegated
-      - ./app/var/cache:/var/www/project/app/var/cache:delegated
-  # mariadb - database
-  mariadb:
+      - ./app:/var/www/app:consistent
+#      - ./app/vendor:/var/www/app/vendor:delegated
+#      - ./app/var/logs:/var/www/app/var/logs:delegated
+#      - ./app/var/cache:/var/www/app/var/cache:delegated
+  # - database
+  db:
     build:
       context: .
-      dockerfile: ./docker-config/mariadb/Dockerfile
+      dockerfile: ./docker-config/db/Dockerfile
     env_file: 
-      - ./app/env/.env-mariadb
+      - ./env/.env-db
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: project
@@ -50,6 +52,7 @@ services:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+      - ./data:/data
   # redis - key/value database for caching & php sessions
   redis:
     build:
@@ -57,5 +60,15 @@ services:
       dockerfile: ./docker-config/redis/Dockerfile
     expose:
       - "6379"
+
+  solr:
+    build:
+      context: .
+      dockerfile: ./docker-config/solr/Dockerfile
+    expose:
+     - "8901"
+    ports:
+     - "8981:8983"
+
 volumes:
   db-data:
