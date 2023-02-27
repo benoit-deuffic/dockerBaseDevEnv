@@ -1,6 +1,6 @@
 FROM composer:latest as composer
 
-FROM bdeuffic/alpine-php-dev-base
+FROM bdeuffic/alpine-php8-dev-base
 
 # Install packages
 RUN apk update \
@@ -20,7 +20,7 @@ RUN apk update \
 
 COPY --from=composer  /usr/bin/composer /usr/local/bin/composer
 
-RUN composer global require hirak/prestissimo --no-plugins --no-scripts
+#RUN composer global require hirak/prestissimo --no-plugins --no-scripts
 
 ENV PATH=/var/www/project/app/vendor/bin:$PATH
 ENV COMPOSER_MEMORY_LIMIT=-1

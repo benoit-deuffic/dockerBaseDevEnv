@@ -1,4 +1,4 @@
-FROM php:fpm-alpine3.11
+FROM oxmix/php8.1-fpm-alpine
 
 # Install packages
 RUN apk update \
@@ -28,12 +28,13 @@ RUN apk update \
         iputils \
         net-tools \
         postgresql-client \
+        linux-headers \
     && \
     # pecl PHP extensions
     pecl install \
-        imagick-3.4.4 \
+        imagick \
         redis \
-        xdebug-2.8.1 \
+        xdebug \
     && \
     # Configure PHP extensions
     docker-php-ext-configure \
@@ -47,7 +48,7 @@ RUN apk update \
         ftp \
         gettext \
         gd \
-        iconv \
+#        iconv \
         intl \
         mbstring \
         opcache \
