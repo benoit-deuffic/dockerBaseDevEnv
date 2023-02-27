@@ -1,0 +1,6 @@
+app/bin/
+app/config/
+app/public/
+app/src/
+app/symfony.lock
+
